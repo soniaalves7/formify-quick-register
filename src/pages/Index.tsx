@@ -174,8 +174,8 @@ const Index = () => {
         {!isSubmitted ? (
           <>
             <FormHeader 
-              title="Processo Seletivo - Formulário de Cadastro"
-              subtitle="Preencha o formulário abaixo para se inscrever no nosso processo seletivo."
+              title="Participe do HubCyber Squad no Bootcamp de Cibersegurança!"
+              subtitle="Preencha o formulário abaixo para se inscrever e garantir sua vaga no bootcamp exclusivo de cibersegurança."
             />
             
             <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-8">

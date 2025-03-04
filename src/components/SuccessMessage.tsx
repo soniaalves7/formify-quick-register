@@ -25,10 +25,10 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({ onReset }) => {
           ></path>
         </svg>
       </div>
-      <h2 className="text-2xl font-semibold text-foreground mb-2">Cadastro Realizado!</h2>
+      <h2 className="text-2xl font-semibold text-foreground mb-2">Inscrição Realizada!</h2>
       <p className="text-muted-foreground max-w-md mx-auto mb-8">
-        Seu formulário foi enviado com sucesso. Agradecemos pelo seu interesse.
-        Entraremos em contato em breve.
+        Seu formulário foi enviado com sucesso. Agradecemos pelo seu interesse no Bootcamp de Cibersegurança HubCyber Squad.
+        Entraremos em contato em breve com mais informações.
       </p>
       <Button 
         onClick={onReset}
