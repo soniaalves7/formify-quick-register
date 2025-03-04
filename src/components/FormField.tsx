@@ -13,6 +13,7 @@ interface FormFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
   value?: string;
   error?: string;
+  checked?: boolean;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -26,14 +27,32 @@ const FormField: React.FC<FormFieldProps> = ({
   onChange,
   value,
   error,
+  checked,
 }) => {
   return (
     <div className={cn("mb-5", className)}>
-      <label htmlFor={id} className="block mb-2 transition-opacity">
-        {label} {required && <span className="text-primary ml-0.5">*</span>}
-      </label>
+      {type === 'checkbox' ? (
+        <div className="flex items-start">
+          <input
+            type="checkbox"
+            id={id}
+            name={id}
+            required={required}
+            className="mt-1 mr-3 h-4 w-4 rounded border-gray-300 focus:ring-primary"
+            onChange={onChange}
+            checked={checked}
+          />
+          <label htmlFor={id} className="text-sm">
+            {label} {required && <span className="text-primary ml-0.5">*</span>}
+          </label>
+        </div>
+      ) : (
+        <label htmlFor={id} className="block mb-2 transition-opacity">
+          {label} {required && <span className="text-primary ml-0.5">*</span>}
+        </label>
+      )}
       
-      {type === 'select' && options ? (
+      {type !== 'checkbox' && type === 'select' && options ? (
         <select
           id={id}
           name={id}
@@ -59,7 +78,7 @@ const FormField: React.FC<FormFieldProps> = ({
           onChange={onChange as any}
           value={value}
         ></textarea>
-      ) : (
+      ) : type !== 'checkbox' ? (
         <input
           type={type}
           id={id}
@@ -70,7 +89,7 @@ const FormField: React.FC<FormFieldProps> = ({
           onChange={onChange}
           value={value}
         />
-      )}
+      ) : null}
       
       {error && (
         <p className="mt-1.5 text-sm text-destructive">{error}</p>

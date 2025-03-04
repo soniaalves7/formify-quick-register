@@ -27,8 +27,8 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({ onReset }) => {
       </div>
       <h2 className="text-2xl font-semibold text-foreground mb-2">Inscrição Realizada!</h2>
       <p className="text-muted-foreground max-w-md mx-auto mb-8">
-        Seu formulário foi enviado com sucesso. Agradecemos pelo seu interesse no Bootcamp de Cibersegurança HubCyber Squad.
-        Entraremos em contato em breve com mais informações.
+        Sua inscrição para o HubCyber Squad foi enviada com sucesso! Agradecemos pelo seu interesse no Bootcamp de Cibersegurança.
+        Entraremos em contato em breve com informações sobre as próximas etapas do processo seletivo.
       </p>
       <Button 
         onClick={onReset}

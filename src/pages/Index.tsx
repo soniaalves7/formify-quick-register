@@ -17,6 +17,10 @@ const Index = () => {
     periodo: '',
     conhecimento: '',
     expectativa: '',
+    experiencia: '',
+    disponibilidade: '',
+    motivacao: '',
+    termosAceitos: false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -67,9 +71,28 @@ const Index = () => {
     { value: 'outro', label: 'Outro' },
   ];
 
+  const experienciaOptions = [
+    { value: 'nenhuma', label: 'Nenhuma experiência prévia' },
+    { value: 'basica', label: 'Conhecimentos básicos' },
+    { value: 'intermediaria', label: 'Conhecimentos intermediários' },
+    { value: 'avancada', label: 'Conhecimentos avançados' },
+  ];
+
+  const disponibilidadeOptions = [
+    { value: 'sim', label: 'Sim, tenho disponibilidade de 6 horas semanais' },
+    { value: 'parcial', label: 'Tenho disponibilidade parcial' },
+    { value: 'nao', label: 'Não tenho disponibilidade no momento' },
+  ];
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target as HTMLInputElement;
+    
+    if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
     
     if (errors[name]) {
       setErrors((prev) => {
@@ -117,6 +140,22 @@ const Index = () => {
       newErrors.periodo = 'Período é obrigatório';
     }
     
+    if (!formData.experiencia) {
+      newErrors.experiencia = 'Experiência em cibersegurança é obrigatória';
+    }
+    
+    if (!formData.disponibilidade) {
+      newErrors.disponibilidade = 'Disponibilidade é obrigatória';
+    }
+    
+    if (!formData.motivacao.trim()) {
+      newErrors.motivacao = 'Motivação é obrigatória';
+    }
+    
+    if (!formData.termosAceitos) {
+      newErrors.termosAceitos = 'Você precisa aceitar os termos para continuar';
+    }
+    
     return newErrors;
   };
 
@@ -159,6 +198,10 @@ const Index = () => {
       periodo: '',
       conhecimento: '',
       expectativa: '',
+      experiencia: '',
+      disponibilidade: '',
+      motivacao: '',
+      termosAceitos: false,
     });
     setErrors({});
     setIsSubmitted(false);
@@ -364,26 +407,76 @@ const Index = () => {
                 </div>
                 
                 <div className="form-section">
-                  <h2 className="text-lg font-medium mb-5 text-foreground">Sobre Você</h2>
+                  <h2 className="text-lg font-medium mb-5 text-foreground">Experiência e Disponibilidade</h2>
                   <div className="space-y-0">
+                    <FormField
+                      label="Experiência em Cibersegurança"
+                      id="experiencia"
+                      type="select"
+                      required
+                      options={experienciaOptions}
+                      value={formData.experiencia}
+                      onChange={handleChange}
+                      error={errors.experiencia}
+                    />
+                    
+                    <FormField
+                      label="Disponibilidade"
+                      id="disponibilidade"
+                      type="select"
+                      required
+                      options={disponibilidadeOptions}
+                      value={formData.disponibilidade}
+                      onChange={handleChange}
+                      error={errors.disponibilidade}
+                    />
+                    
                     <FormField
                       label="Conhecimentos e Habilidades"
                       id="conhecimento"
                       type="textarea"
-                      placeholder="Descreva brevemente seus conhecimentos e habilidades relacionados à vaga"
+                      placeholder="Descreva brevemente seus conhecimentos e habilidades relacionados à cibersegurança (opcional)"
                       value={formData.conhecimento}
                       onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                
+                <div className="form-section">
+                  <h2 className="text-lg font-medium mb-5 text-foreground">Motivação</h2>
+                  <div className="space-y-0">
+                    <FormField
+                      label="Por que você quer participar do HubCyber Squad?"
+                      id="motivacao"
+                      type="textarea"
+                      placeholder="Conte-nos sua motivação para participar do HubCyber Squad"
+                      required
+                      value={formData.motivacao}
+                      onChange={handleChange}
+                      error={errors.motivacao}
                     />
                     
                     <FormField
                       label="Expectativas"
                       id="expectativa"
                       type="textarea"
-                      placeholder="Quais são suas expectativas para este processo seletivo?"
+                      placeholder="Quais são suas expectativas para este bootcamp? (opcional)"
                       value={formData.expectativa}
                       onChange={handleChange}
                     />
                   </div>
+                </div>
+                
+                <div className="form-section">
+                  <FormField
+                    label="Declaro que todas as informações fornecidas são verdadeiras e concordo em participar de todas as etapas do processo seletivo do HubCyber Squad."
+                    id="termosAceitos"
+                    type="checkbox"
+                    required
+                    checked={formData.termosAceitos}
+                    onChange={handleChange}
+                    error={errors.termosAceitos}
+                  />
                 </div>
                 
                 <div className="form-section pt-4">
