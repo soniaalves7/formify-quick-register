@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import FormHeader from '@/components/FormHeader';
@@ -79,7 +80,7 @@ const Index = () => {
   ];
 
   const disponibilidadeOptions = [
-    { value: 'sim', label: 'Sim, tenho disponibilidade de 6 horas semanais' },
+    { value: 'sim', label: 'Sim, tenho disponibilidade de 6 horas semanais e para participar das reuniões preliminares ao evento' },
     { value: 'parcial', label: 'Tenho disponibilidade parcial' },
     { value: 'nao', label: 'Não tenho disponibilidade no momento' },
   ];
